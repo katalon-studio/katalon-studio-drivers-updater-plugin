@@ -1,0 +1,62 @@
+{
+  "chromedriver": {
+    "win64": {
+      "version": "2.43.600210",
+      "url": "drivers/chromedriver_win32/chromedriver.exe"
+    },
+    "win32": {
+      "version": "2.43.600210",
+      "url": "drivers/chromedriver_win32/chromedriver.exe"
+    },
+    "linux32": {
+      "version": "2.43.600210",
+      "url": "drivers/chromedriver_linux32/chromedriver"
+    },
+    "linux64": {
+      "version": "2.43.600210",
+      "url": "drivers/chromedriver_linux64/chromedriver"
+    },
+    "macosx": {
+      "version": "2.43.600210",
+      "url": "drivers/chromedriver_mac/chromedriver"
+    }
+  },
+  "geckodriver": {
+    "win64": {
+      "version": "0.23.0",
+      "url": "drivers/firefox_win64/geckodriver.exe"
+    },
+    "win32": {
+      "version": "0.23.0",
+      "url": "drivers/firefox_win64/geckodriver.exe"
+    },
+    "linux32": {
+      "version": "0.23.0",
+      "url": "drivers/firefox_linux64/geckodriver"
+    },
+    "linux64": {
+      "version": "0.23.0",
+      "url": "drivers/firefox_linux64/geckodriver"
+    },
+    "macosx": {
+      "version": "0.23.0",
+      "url": "drivers/firefox_mac/geckodriver"
+    }
+  },
+  "iedriver": {
+    "win64": {
+      "version": "3.6.0.0",
+      "url": "drivers/iedriver_win64/IEDriverServer.exe"
+    },
+    "win32": {
+      "version": "3.6.0.0",
+      "url": "drivers/iedriver_win32/IEDriverServer.exe"
+    }
+  },
+  "seleniumDriver": {
+    ".": {
+      "version": "3.7.1",
+      "url": "com.kms.katalon.selenium-standalone/resources/lib/selenium-server-standalone-3.7.1.jar"
+    }
+  }
+}

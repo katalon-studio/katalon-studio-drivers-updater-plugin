@@ -1,4 +1,4 @@
-package com.katalon.plugin.drivers_updater;
+package com.katalon.plugin.driver_upload;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;

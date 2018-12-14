@@ -1,4 +1,4 @@
-package com.katalon.plugin.drivers_updater;
+package com.katalon.plugin.driver_upload;
 
 public class Driver {
     private String version;
@@ -36,5 +36,10 @@ public class Driver {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return version + " " + os + " " + url + " " + name;
     }
 }

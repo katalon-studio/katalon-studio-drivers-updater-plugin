@@ -1,4 +1,4 @@
-package com.katalon.plugin.drivers_updater;
+package com.katalon.plugin.driver_upload;
 
 import com.katalon.platform.api.extension.event.EventListener;
 import com.katalon.platform.api.extension.event.EventListenerInitializer;

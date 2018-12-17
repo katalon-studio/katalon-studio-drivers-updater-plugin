@@ -2,6 +2,7 @@ package com.katalon.plugin.driver_upload;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -52,6 +53,7 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
         return "";
     }
 
+    
     @Override
     protected Control createContents(Composite parent) {
         Composite container = new Composite(parent, SWT.NONE);
@@ -74,7 +76,7 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
             column.setWidth(400);
         }
 
-        try {
+        try {          
             readCurrentVersion();
             System.out.println("read current version done!");
 
@@ -94,7 +96,7 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
             final TableItem item2 = new TableItem(table, SWT.NONE);
             item2.setText(new String[] {"Gecko",
                     listVersion.get("geckodriver").get(os).getVersion(),
-                    "1.2.2"});
+                    versionGeckoDriverLastest});
 
             List<Driver> re = GetLastestVersion.getIEDriverSeleniumDriver(os);
             String versionIEDriverLastest = re.get(0).getVersion();

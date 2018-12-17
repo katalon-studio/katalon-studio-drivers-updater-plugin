@@ -1,19 +1,14 @@
 package com.katalon.plugin.driver_upload;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jcabi.github.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.eclipse.persistence.jaxb.JAXBContextFactory;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.eclipse.persistence.jaxb.JAXBContextFactory;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -27,8 +22,8 @@ import java.util.*;
 import static javax.xml.stream.XMLInputFactory.IS_NAMESPACE_AWARE;
 
 public class GetLastestVersion {
-    private static final String USERNAME = "plugingettags";
-    private static final String PASSWORD = "123!23Qwe";
+//    private static final String USERNAME = "plugingettags";
+//    private static final String PASSWORD = "123!23Qwe";
 
     private static int compareInt(int n1, int n2){
         if (n1 > n2){
@@ -260,45 +255,40 @@ public class GetLastestVersion {
         return re;
     }
 
-    public static Driver getGeckoDriver(String currentOS) throws IOException {
-        System.out.println("In getting version gecko Driver");
-        List<Driver> driversGecko = new ArrayList<>();
-        Github github = new RtGithub(USERNAME, PASSWORD);
-        Coordinates coords = new Coordinates.Simple("mozilla/geckoDriver");
+    public static Driver getGeckoDriver(String currentOS) throws IOException{
+		String url = "https://github.com/mozilla/geckoDriver/releases/latest";
 
-        Repo repo = github.repos().get(coords);
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(url);
+        request.addHeader("content-type", "application/github.v3+json");
 
-        Driver result = null;
-        List<Integer> idReleases = new ArrayList<>();
-       for (Release release : repo.releases().iterate()) {
-            idReleases.add(release.number());
-       }
-        int maxId = Collections.max(idReleases);
-        JsonObject data = repo.releases().get(maxId).json();
-        String version = data.getString("tag_name");
-
-        JsonArray temp = data.getJsonArray("assets");
-
-        for(JsonValue t : temp){
-            JsonObject n = (JsonObject) t;
-
-            String url = n.getString("browser_download_url");
-
-            if (url.contains(currentOS)){
+        HttpResponse result;
+		result = httpClient.execute(request);
+		String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+		
+		while(true){
+			int index = json.indexOf("mozilla/geckodriver/releases/download");
+			if(index == -1) break;
+			int lastIndex = json.indexOf("\"", index);
+			String urlTemp = json.substring(index, lastIndex);
+			json = json.replace(urlTemp, "");
+			
+            if (urlTemp.contains(currentOS)){
                 Driver gecko = new Driver();
-                gecko.setName(n.getString("name"));
+                gecko.setName(urlTemp.substring(urlTemp.lastIndexOf("/")));
                 gecko.setOs(currentOS);
-                gecko.setUrl(url);
-                gecko.setVersion(version.replace("v", ""));
-                driversGecko.add(gecko);
+                gecko.setUrl("https://github.com/" + urlTemp);
+                gecko.setVersion(urlTemp.substring(urlTemp.indexOf("download/") + 10, urlTemp.lastIndexOf("/")));
+               
                 return gecko;
             }
-
-        }
-        return null;
+			
+		}
+		return null;
     }
-
-    private static void writeToJson(List<Driver> drivers, String fileJson) throws IOException {
+    
+    @SuppressWarnings("unused")
+	private static void writeToJson(List<Driver> drivers, String fileJson) throws IOException {
         Map<String, List<Driver>> dictionary = new HashMap<>();
         for (Driver i : drivers) {
             String version = i.getVersion();
@@ -334,6 +324,8 @@ public class GetLastestVersion {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    	
+   
+            
     }
 }

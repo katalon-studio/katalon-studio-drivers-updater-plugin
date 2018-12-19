@@ -1,7 +1,9 @@
 package com.katalon.plugin.driver_upload;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,6 +19,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static javax.xml.stream.XMLInputFactory.IS_NAMESPACE_AWARE;
@@ -34,7 +37,7 @@ public class GetLastestVersion {
         return 0;
     }
 
-    private static int compareVerison(String v1, String v2){
+    public static int compareVerison(String v1, String v2){
         int index1 = v1.indexOf(".");
         int index2 = v2.indexOf(".");
         if (index1 == -1 && index2 != -1) {
@@ -96,7 +99,6 @@ public class GetLastestVersion {
     }
 
     public static Driver getChromeDrive(String currentOS) throws IOException {
-        System.out.println("In getting version chromeDriver");
         String os = "";
         if (currentOS.contains("win")){
             os = "win";
@@ -147,14 +149,10 @@ public class GetLastestVersion {
                 }
             }
         }
-
-        System.out.println("Done!");
-
         return result;
     }
 
     public static List<Driver> getIEDriverSeleniumDriver(String currentOS) throws IOException {
-        System.out.println("In getting version IE and Selenium Driver");
         String url = "https://selenium-release.storage.googleapis.com/";
         ListBucketResult data = readDataFromURL(url);
         List<Driver> driversIE = new ArrayList<>();
@@ -247,7 +245,6 @@ public class GetLastestVersion {
 
 //        writeToJson(driversIE, "ieDriver.json");
 //        writeToJson(driversSelenium, "seleniumDriver.json");
-        System.out.println("Done!");
 
         List<Driver> re = new ArrayList<>();
         re.add(resultIE);
@@ -307,25 +304,78 @@ public class GetLastestVersion {
         mapper.writeValue(new File(fileJson), dictionary);
     }
 
-    public static void main(String[] args) {
-        try {
-            Driver chromeDriver = getChromeDrive("win64");
-
-            List<Driver> re = getIEDriverSeleniumDriver("win64");
-            Driver getGeckoDriver = getGeckoDriver("win64");
-
-            System.out.println(chromeDriver.toString());
-
-            System.out.println(re.get(0).toString());
-            System.out.println(re.get(1).toString());
-
-            System.out.println(getGeckoDriver.toString());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    	
-   
-            
+    public static Map<String, Map<String,ObjectTemp>> readCurrentVersion(String data) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(data, new TypeReference<Map<String, Map<String,ObjectTemp>>>(){});
     }
+
+    public static String getOS(){
+        String nameOS = System.getProperty("os.name");
+
+        if (nameOS.contains("Windows")) {
+            if (System.getProperty("os.arch").contains("64")){
+                return "win64";
+            } else{
+                return "win32";
+            }
+        } else if (nameOS.contains("linux")
+                || nameOS.contains("mpe/ix")
+                || nameOS.contains("freebsd")
+                || nameOS.contains("irix")
+                || nameOS.contains("digital unix")
+                || nameOS.contains("unix")) {
+            if (System.getProperty("os.arch").contains("64")){
+                return "win64";
+            } else{
+                return "win32";
+            }
+        } else if (nameOS.contains("mac os")) {
+            return "macosx";
+        }
+        return "";
+    }
+    
+    public String getDataVersionCurrent(){
+    	ClassLoader classLoader = getClass().getClassLoader();
+    	InputStream temp = classLoader.getResourceAsStream("json/version.json");
+    	StringWriter writer = new StringWriter();
+    	String encoding = StandardCharsets.UTF_8.name();
+    	String theString = "";
+    	try {
+			IOUtils.copy(temp, writer, encoding);
+			theString = writer.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	return theString;
+    }
+    
+//    public static void main(String[] args) {
+//    	GetLastestVersion get = new GetLastestVersion();
+//    	    	
+//    	try {
+//			System.out.println(readCurrentVersion(get.getDataVersionCurrent()));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	
+//        try {
+//            Driver chromeDriver = getChromeDrive("win64");
+//
+//            List<Driver> re = getIEDriverSeleniumDriver("win64");
+//            Driver getGeckoDriver = getGeckoDriver("win64");
+//
+//            System.out.println(chromeDriver.toString());
+//
+//            System.out.println(re.get(0).toString());
+//            System.out.println(re.get(1).toString());
+//
+//            System.out.println(getGeckoDriver.toString());
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    	
 }

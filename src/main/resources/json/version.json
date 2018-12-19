@@ -56,7 +56,7 @@
   "seleniumDriver": {
     ".": {
       "version": "3.7.1",
-      "url": "com.kms.katalon.selenium-standalone/resources/lib/selenium-server-standalone-3.7.1.jar"
+      "url": "resources/lib/selenium-server-standalone-3.7.1.jar"
     }
   }
 }

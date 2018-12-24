@@ -31,8 +31,8 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
 
-//        String[] titles = {"Driver", "Current", "Lastest", "Action"};
-        String[] titles = {"Driver", "Current", "Lastest"};
+//        String[] titles = {"Driver", "Current", "Latest", "Action"};
+        String[] titles = {"Driver", "Current", "Latest"};
         
         TableColumn column;
         for (String title : titles) {
@@ -41,41 +41,40 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
             column.setWidth(400);
         }
         try {          
-        	GetLastestVersion get = new GetLastestVersion();
+        	GetLatestVersion get = new GetLatestVersion();
         	String dataCurrentVersion = get.getDataVersionCurrent();
         	
-        	Map<String, Map<String,Driver>> listVersion =  GetLastestVersion.readCurrentVersion(dataCurrentVersion);
+        	Map<String, Map<String,Driver>> listVersion =  GetLatestVersion.readCurrentVersion(dataCurrentVersion);
 
-            String os = GetLastestVersion.getOS();
+            String os = GetLatestVersion.getOS();
 
             final TableItem item1 = new TableItem(table, SWT.NONE);
-            Driver chromeDriver = GetLastestVersion.getChromeDrive(os);
-            String versionChromeLastest = chromeDriver.getVersion();
+            Driver chromeDriver = GetLatestVersion.getChromeDrive(os);
+            String versionChromeLatest = chromeDriver.getVersion();
             item1.setText(new String[] {"Chrome",
                     listVersion.get("chromedriver").get(os).getVersion(),
-                    versionChromeLastest});
+                    versionChromeLatest});
             item1.setData("url", chromeDriver.getUrl());
             
-            Driver geckoDriver = GetLastestVersion.getGeckoDriver(os);
-            String versionGeckoDriverLastest = geckoDriver.getVersion();
+            Driver geckoDriver = GetLatestVersion.getGeckoDriver(os);
+            String versionGeckoDriverLatest = geckoDriver.getVersion();
             final TableItem item2 = new TableItem(table, SWT.NONE);
             item2.setText(new String[] {"Gecko",
                     listVersion.get("geckodriver").get(os).getVersion(),
-                    versionGeckoDriverLastest});
+                    versionGeckoDriverLatest});
             item2.setData("url", geckoDriver.getUrl());
 
-            List<Driver> re = GetLastestVersion.getIEDriverSeleniumDriver(os);
-            String versionIEDriverLastest = re.get(0).getVersion();
+            List<Driver> re = GetLatestVersion.getIEDriverSeleniumDriver(os);
+            String versionIEDriverLatest = re.get(0).getVersion();
             String versionSeleniumDriver = re.get(1).getVersion();
             
             final TableItem item3 = new TableItem(table, SWT.NONE);
             item3.setText(new String[] {"IE",
                     listVersion.get("iedriver").get(os).getVersion(),
-                    versionIEDriverLastest});
+                    versionIEDriverLatest});
             item3.setData("url", re.get(0).getUrl());
 
             final TableItem item4 = new TableItem(table, SWT.NONE);
-            
             item4.setText(new String[] {"Selenium",
                     listVersion.get("seleniumDriver").get(".").getVersion(),
                     versionSeleniumDriver});
@@ -86,6 +85,16 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
             item.add(item2);
             item.add(item3);
             item.add(item4);
+            
+            if (os.contains("win")){
+            	final TableItem item5 = new TableItem(table, SWT.NONE);
+                Driver edgeDriver = GetLatestVersion.getEdgeDriver(os);
+                String versionEdgeLatest = edgeDriver.getVersion();
+                item5.setText(new String[] {"Edge",
+                        listVersion.get("edgedriver").get(os).getVersion(),
+                        versionEdgeLatest});
+                item5.setData("url", edgeDriver.getUrl());
+            }
             
             //For download browsers driver, don't use
 //            TableEditor[] tableEditor = new TableEditor[4];

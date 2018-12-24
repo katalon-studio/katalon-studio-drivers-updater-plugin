@@ -58,5 +58,15 @@
       "version": "3.7.1",
       "url": "resources/lib/selenium-server-standalone-3.7.1.jar"
     }
+  },
+  "edgedriver": {
+  	"win32":{
+  	  "version": "5.16299",
+  	  "url": "os_resources/win32/resources/drivers/edgedriver"
+  	},
+  	"win64":{
+  	  "version": "5.16299",
+  	  "url": "os_resources/win32/resources/drivers/edgedriver"
+  	}
   }
 }

@@ -24,7 +24,7 @@ import java.util.*;
 
 import static javax.xml.stream.XMLInputFactory.IS_NAMESPACE_AWARE;
 
-public class GetLastestVersion {
+public class GetLatestVersion {
 //    private static final String USERNAME = "plugingettags";
 //    private static final String PASSWORD = "123!23Qwe";
 
@@ -278,6 +278,55 @@ public class GetLastestVersion {
 		return null;
     }
     
+    public static Driver getEdgeDriver(String currentOS) throws IOException{
+    	if (currentOS.contains("win")){
+    		String url = "https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/";
+
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(url);
+            request.addHeader("content-type", "json");
+
+            HttpResponse result;
+    		result = httpClient.execute(request);
+    		String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+
+    		String versionLatest = null;
+    		String urlLatest = null;
+    		
+    		while(true){
+    			int index = json.indexOf("https://download.microsoft.com/download");
+    			if(index == -1) break;
+    			int lastIndex = json.indexOf(".exe", index);
+    			String urlTemp = json.substring(index, lastIndex+4);
+    			json = json.replace(urlTemp, "");
+    			
+    			index = json.indexOf("Version: ");
+    			lastIndex = json.indexOf("|", index);
+    			
+    			String versionTemp = json.substring(index, lastIndex - 1);
+    			json = json.replace(versionTemp, "");
+    			versionTemp = versionTemp.replace("Version: ", "");
+    			
+    			if (versionLatest == null){
+    				versionLatest = versionTemp;
+    				urlLatest = urlTemp;
+    			} else if (compareVerison(versionLatest, versionTemp) == 2){
+    				versionLatest = versionTemp;
+    				urlLatest = urlTemp;
+    			}
+    		}
+    		
+    		Driver edgeDriver = new Driver();
+    		edgeDriver.setName("MicrosoftWebDriver.exe");
+    		edgeDriver.setOs("win");
+    		edgeDriver.setUrl(urlLatest);
+    		edgeDriver.setVersion(versionLatest);
+
+    		return edgeDriver;
+    	}
+		return null;
+    }
+    
     @SuppressWarnings("unused")
 	private static void writeToJson(List<Driver> drivers, String fileJson) throws IOException {
         Map<String, List<Driver>> dictionary = new HashMap<>();
@@ -344,7 +393,7 @@ public class GetLastestVersion {
     	return theString;
     }	
     
-//    public static void main(String []args){
+    public static void main(String []args){
 //    	File file = new File("D:\\Katalon\\katalon-studio-drivers-updater-plugin\\src\\main\\resources\\json\\versionCurrent.json");
 //    	ObjectMapper objectMapper = new ObjectMapper();
 //    	try {
@@ -354,5 +403,12 @@ public class GetLastestVersion {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//    }
+    	    	
+    	try {
+			System.out.println(getEdgeDriver("win64"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }

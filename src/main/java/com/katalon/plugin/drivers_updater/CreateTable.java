@@ -1,4 +1,4 @@
-package com.katalon.plugin.driver_upload;
+package com.katalon.plugin.drivers_updater;
 
 import static org.eclipse.swt.SWT.NULL;
 

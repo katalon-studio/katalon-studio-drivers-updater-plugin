@@ -1,4 +1,4 @@
-package com.katalon.plugin.driver_upload;
+package com.katalon.plugin.drivers_updater;
 
 import java.io.File;
 import java.io.IOException;

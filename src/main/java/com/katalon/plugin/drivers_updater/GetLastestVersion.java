@@ -1,4 +1,4 @@
-package com.katalon.plugin.driver_upload;
+package com.katalon.plugin.drivers_updater;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.katalon.plugin.driver_upload;
+package com.katalon.plugin.drivers_updater;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

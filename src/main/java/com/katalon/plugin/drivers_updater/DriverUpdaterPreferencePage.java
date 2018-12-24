@@ -1,4 +1,4 @@
-package com.katalon.plugin.driver_upload;
+package com.katalon.plugin.drivers_updater;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.TableViewer;
@@ -108,18 +108,18 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
 //	            		item.get(idx).setText(0, "new");
 	            		
 //	            		System.out.println(item.get(idx).getText(1).toString());
-	        			try {
+//	        			try {
 	        				String url = item.get(idx).getData("url").toString();
 	        				
 	        				System.out.println(url);
 	        				
-		            		DownloadTask downloadTask = new DownloadTask(url);
-		                	File dir = new File(".\\");
-							System.out.println(downloadTask.downloadAndExtract(dir));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+//		            		DownloadTask downloadTask = new DownloadTask(url);
+//		                	File dir = new File(".\\");
+//							System.out.println(downloadTask.downloadAndExtract(dir));
+//						} catch (IOException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
 
             	}
               });

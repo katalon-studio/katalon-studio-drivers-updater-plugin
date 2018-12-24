@@ -2,17 +2,17 @@
 	<extension
             point="com.katalon.platform.extensions">
         <point
-                id="com.katalon.plugin.tags.TagEventListenerInitializer"
-                extensionPointId="com.katalon.platform.api.extension.event"
-                implementationClass="com.katalon.plugin.driver_upload.DriverUpdaterEventListenerInitializer">
+                id="com.katalon.plugin.drivers_updater.DriverUpdaterEventListenerInitializer"
+                extensionPointId="com.katalon.platform.api.extension.eventListener"
+                implementationClass="com.katalon.plugin.drivers_updater.DriverUpdaterEventListenerInitializer">
         </point>
     </extension>
     <extension
             point="com.kms.katalon.preferences.PreferencePages">
         <page
                 category="com.kms.katalon.composer.preferences.PluginPreferencePage"
-                class="com.katalon.plugin.driver_upload.DriverUpdaterPreferencePage"
-                id="com.katalon.plugin.driver_upload.DriverUpdaterPreferencePage"
+                class="com.katalon.plugin.drivers_updater.DriverUpdaterPreferencePage"
+                id="com.katalon.plugin.drivers_updater.DriverUpdaterPreferencePage"
                 name="Drivers Updater">
         </page>
     </extension>

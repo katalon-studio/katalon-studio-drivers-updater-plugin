@@ -1,22 +1,20 @@
-package com.katalon.plugin.driver_upload;
+package com.katalon.plugin.drivers_updater;
 
-//import java.awt.Event;
+import org.osgi.service.event.Event;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import com.katalon.platform.api.extension.event.EventListener;
-import com.katalon.platform.api.extension.event.EventListenerInitializer;
-import com.katalon.platform.api.extension.execution.ExecutionEvent;
-
-import org.osgi.service.event.Event;
-//import org.osgi.service.prefs.Preferences;
+import com.katalon.platform.api.event.EventListener;
+import com.katalon.platform.api.event.ExecutionEvent;
+import com.katalon.platform.api.extension.EventListenerInitializer;
 
 public class DriverUpdaterEventListenerInitializer implements EventListenerInitializer {
 
     public void registerListener(EventListener eventListener) {
     	eventListener.on(Event.class, event -> {
     		try {
-    			if (ExecutionEvent.TEST_SUITE_FINISHED_EVENT.equals(event.getTopic())){
+                if (ExecutionEvent.TEST_SUITE_FINISHED_EVENT.equals(event.getTopic())) {
     				System.out.println("Check for update brower driver.");
     				GetLastestVersion getVersion = new GetLastestVersion();
     				

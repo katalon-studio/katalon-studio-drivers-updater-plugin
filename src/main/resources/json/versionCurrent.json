@@ -62,11 +62,11 @@
   "edgedriver": {
   	"win32":{
   	  "version": "5.16299",
-  	  "url": "os_resources/win32/resources/drivers/edgedriver"
+  	  "url": "drivers/edgedriver/MicrosoftWebDriver.exe"
   	},
   	"win64":{
   	  "version": "5.16299",
-  	  "url": "os_resources/win32/resources/drivers/edgedriver"
+  	  "url": "drivers/edgedriver/MicrosoftWebDriver.exe"
   	}
   }
 }

@@ -392,23 +392,4 @@ public class GetLatestVersion {
 		}
     	return theString;
     }	
-    
-    public static void main(String []args){
-//    	File file = new File("D:\\Katalon\\katalon-studio-drivers-updater-plugin\\src\\main\\resources\\json\\versionCurrent.json");
-//    	ObjectMapper objectMapper = new ObjectMapper();
-//    	try {
-//			Map<String, Map<String,Driver>> obb = objectMapper.readValue(file, new TypeReference<Map<String, Map<String,Driver>>>(){});
-//			System.out.println(obb);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-    	    	
-    	try {
-			System.out.println(getEdgeDriver("win64"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
 }

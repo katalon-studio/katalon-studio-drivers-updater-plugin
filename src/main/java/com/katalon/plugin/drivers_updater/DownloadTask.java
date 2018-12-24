@@ -13,6 +13,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import org.apache.commons.io.IOUtils;
 
+//Download browser drivers.
+//By Anh Tuan
+
 public class DownloadTask {
 	private String url;
 	
@@ -98,29 +101,5 @@ public class DownloadTask {
     private boolean buildDirectory(File file)
     {
         return file.exists() || file.mkdirs();
-    }
-    
-    public static void main(String[] args) {
-    	
-    	try {
-
-    		String chrome = "http://chromedriver.storage.googleapis.com/2.45/chromedriver_win32.zip";
-    		String IE = "https://selenium-release.storage.googleapis.com/3.141/IEDriverServer_x64_3.141.0.zip";
-    		String Selenium = "https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.0.jar";
-    		String gecko = "https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-win64.zip";
-        	
-    		System.out.println("In downloading...");
-    		
-        	DownloadTask downloadTask = new DownloadTask(Selenium);
-        	
-        	File dir = new File(".\\");
-			System.out.println(downloadTask.downloadAndExtract(dir));
-
-			System.out.println("Done");
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 }

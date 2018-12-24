@@ -62,7 +62,6 @@ public class GetLastestVersion {
         } else {
             return 2;
         }
-
     }
 
     private static ListBucketResult readDataFromURL(String link) {
@@ -155,8 +154,8 @@ public class GetLastestVersion {
     public static List<Driver> getIEDriverSeleniumDriver(String currentOS) throws IOException {
         String url = "https://selenium-release.storage.googleapis.com/";
         ListBucketResult data = readDataFromURL(url);
-        List<Driver> driversIE = new ArrayList<>();
-        List<Driver> driversSelenium = new ArrayList<>();
+//        List<Driver> driversIE = new ArrayList<>();
+//        List<Driver> driversSelenium = new ArrayList<>();
 
         Driver resultIE = null;
         Driver resultSelenium = null;
@@ -192,8 +191,7 @@ public class GetLastestVersion {
                 temp.setOs(os);
                 temp.setUrl(urlDrive);
                 temp.setVersion(version);
-                driversIE.add(temp);
-
+//                driversIE.add(temp);
 
                 if(os.contains(currentOS)){
                     if (resultIE == null){
@@ -208,7 +206,6 @@ public class GetLastestVersion {
                         if (verTemp.contains("-beta")){
                             verTemp = verRe.replace("-beta", ".");
                         }
-
                         if (compareVerison(verRe, verTemp) == 2){
                             resultIE = temp;
                         }
@@ -221,7 +218,7 @@ public class GetLastestVersion {
                 temp.setOs(".");
                 temp.setUrl(urlDrive);
                 temp.setVersion(version);
-                driversSelenium.add(temp);
+//                driversSelenium.add(temp);
 
                 if (resultSelenium == null){
                     resultSelenium = temp;
@@ -234,12 +231,10 @@ public class GetLastestVersion {
                     if (verTemp.contains("-beta")){
                         verTemp = verRe.replace("-beta", ".");
                     }
-
                     if (compareVerison(verRe, verTemp) == 2){
                         resultSelenium = temp;
                     }
                 }
-
             }
         }
 
@@ -279,7 +274,6 @@ public class GetLastestVersion {
                
                 return gecko;
             }
-			
 		}
 		return null;
     }
@@ -304,9 +298,9 @@ public class GetLastestVersion {
         mapper.writeValue(new File(fileJson), dictionary);
     }
 
-    public static Map<String, Map<String,ObjectTemp>> readCurrentVersion(String data) throws IOException {
+    public static Map<String, Map<String,Driver>> readCurrentVersion(String data) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(data, new TypeReference<Map<String, Map<String,ObjectTemp>>>(){});
+        return objectMapper.readValue(data, new TypeReference<Map<String, Map<String,Driver>>>(){});
     }
 
     public static String getOS(){
@@ -337,7 +331,7 @@ public class GetLastestVersion {
     
     public String getDataVersionCurrent(){
     	ClassLoader classLoader = getClass().getClassLoader();
-    	InputStream temp = classLoader.getResourceAsStream("json/version.json");
+    	InputStream temp = classLoader.getResourceAsStream("json/versionCurrent.json");
     	StringWriter writer = new StringWriter();
     	String encoding = StandardCharsets.UTF_8.name();
     	String theString = "";
@@ -347,35 +341,18 @@ public class GetLastestVersion {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
     	return theString;
-    }
+    }	
     
-//    public static void main(String[] args) {
-//    	GetLastestVersion get = new GetLastestVersion();
-//    	    	
+//    public static void main(String []args){
+//    	File file = new File("D:\\Katalon\\katalon-studio-drivers-updater-plugin\\src\\main\\resources\\json\\versionCurrent.json");
+//    	ObjectMapper objectMapper = new ObjectMapper();
 //    	try {
-//			System.out.println(readCurrentVersion(get.getDataVersionCurrent()));
+//			Map<String, Map<String,Driver>> obb = objectMapper.readValue(file, new TypeReference<Map<String, Map<String,Driver>>>(){});
+//			System.out.println(obb);
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//    	
-//        try {
-//            Driver chromeDriver = getChromeDrive("win64");
-//
-//            List<Driver> re = getIEDriverSeleniumDriver("win64");
-//            Driver getGeckoDriver = getGeckoDriver("win64");
-//
-//            System.out.println(chromeDriver.toString());
-//
-//            System.out.println(re.get(0).toString());
-//            System.out.println(re.get(1).toString());
-//
-//            System.out.println(getGeckoDriver.toString());
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    	
+//    }
 }

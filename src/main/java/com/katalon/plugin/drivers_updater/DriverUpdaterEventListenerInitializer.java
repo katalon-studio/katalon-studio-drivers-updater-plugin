@@ -15,13 +15,13 @@ public class DriverUpdaterEventListenerInitializer implements EventListenerIniti
     	eventListener.on(Event.class, event -> {
     		try {
                 if (ExecutionEvent.TEST_SUITE_FINISHED_EVENT.equals(event.getTopic())) {
-    				System.out.println("Check for update brower driver.");
+//    				System.out.println("Check for update browser drivers.");
     				GetLastestVersion getVersion = new GetLastestVersion();
     				
     		    	String os = GetLastestVersion.getOS();  
     		    	String data = getVersion.getDataVersionCurrent();
     		    	
-    				Map<String, Map<String,ObjectTemp>> current = GetLastestVersion.readCurrentVersion(data);
+    				Map<String, Map<String,Driver>> current = GetLastestVersion.readCurrentVersion(data);
     				Driver chromeDriver;
     				chromeDriver = GetLastestVersion.getChromeDrive(os);
     				String currentVersionChromeDriver = current.get("chromedriver").get(os).getVersion();

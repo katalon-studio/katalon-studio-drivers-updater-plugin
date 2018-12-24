@@ -16,5 +16,4 @@ public class ListBucketResult {
     public void setContents(List<Contents> contents) {
         Contents = contents;
     }
-
 }

@@ -21,8 +21,7 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
     @Override
     protected Control createContents(Composite parent) {
         Composite container = new Composite(parent, SWT.NONE);
-        
-        //TODO: Add driver updater layout here
+
         container.setLayout(new GridLayout(1, false));
 
         TableViewer tableViewer = new TableViewer(container);
@@ -32,7 +31,8 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
 
-        String[] titles = {"Driver", "Current", "Lastest", "Action"};
+//        String[] titles = {"Driver", "Current", "Lastest", "Action"};
+        String[] titles = {"Driver", "Current", "Lastest"};
         
         TableColumn column;
         for (String title : titles) {
@@ -40,17 +40,13 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
             column.setText(title);
             column.setWidth(400);
         }
-
         try {          
         	GetLastestVersion get = new GetLastestVersion();
         	String dataCurrentVersion = get.getDataVersionCurrent();
         	
-        	Map<String, Map<String,ObjectTemp>> listVersion =  GetLastestVersion.readCurrentVersion(dataCurrentVersion);
-            System.out.println("read current version done!");
+        	Map<String, Map<String,Driver>> listVersion =  GetLastestVersion.readCurrentVersion(dataCurrentVersion);
 
             String os = GetLastestVersion.getOS();
-
-            System.out.println(os);
 
             final TableItem item1 = new TableItem(table, SWT.NONE);
             Driver chromeDriver = GetLastestVersion.getChromeDrive(os);
@@ -91,27 +87,28 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
             item.add(item3);
             item.add(item4);
             
-            TableEditor[] tableEditor = new TableEditor[4];
-
-            Button[] btnDownloads = new Button[4];
-
-            for (int i = 0; i < 4; i++) {
-              tableEditor[i] = new TableEditor(table);
-              btnDownloads[i] = new Button(table, SWT.PUSH);
-
-              btnDownloads[i].setText("Download");
-              btnDownloads[i].computeSize(SWT.DEFAULT, table.getItemHeight());
-              btnDownloads[i].addSelectionListener(new SelectionAdapter() {
-            	  @Override
-            	public void widgetSelected(SelectionEvent e) {
-            		  int idx = (int)e.widget.getData("index");
+            //For download browsers driver, don't use
+//            TableEditor[] tableEditor = new TableEditor[4];
+//
+//            Button[] btnDownloads = new Button[4];
+//
+//            for (int i = 0; i < 4; i++) {
+//              tableEditor[i] = new TableEditor(table);
+//              btnDownloads[i] = new Button(table, SWT.PUSH);
+//
+//              btnDownloads[i].setText("Download");
+//              btnDownloads[i].computeSize(SWT.DEFAULT, table.getItemHeight());
+//              btnDownloads[i].addSelectionListener(new SelectionAdapter() {
+//            	  @Override
+//            	public void widgetSelected(SelectionEvent e) {
+//            		  int idx = (int)e.widget.getData("index");
 //	            		item.get(idx).setText(0, "new");
 	            		
 //	            		System.out.println(item.get(idx).getText(1).toString());
 //	        			try {
-	        				String url = item.get(idx).getData("url").toString();
-	        				
-	        				System.out.println(url);
+//	        				String url = item.get(idx).getData("url").toString();
+//	        				
+//	        				System.out.println(url);
 	        				
 //		            		DownloadTask downloadTask = new DownloadTask(url);
 //		                	File dir = new File(".\\");
@@ -120,29 +117,25 @@ public class DriverUpdaterPreferencePage extends PreferencePage {
 //							// TODO Auto-generated catch block
 //							e1.printStackTrace();
 //						}
-
-            	}
-              });
-              btnDownloads[i].setData("index", i);
+//
+//            	}
+//              });
               
-              tableEditor[i].grabHorizontal = true;
-              tableEditor[i].minimumHeight = btnDownloads[i].getSize().y;
-              tableEditor[i].minimumWidth = btnDownloads[i].getSize().x;
-
-              tableEditor[i].setEditor(btnDownloads[i], item.get(i), 3);
-            }
-            
-            
+//              btnDownloads[i].setData("index", i);
+//              
+//              tableEditor[i].grabHorizontal = true;
+//              tableEditor[i].minimumHeight = btnDownloads[i].getSize().y;
+//              tableEditor[i].minimumWidth = btnDownloads[i].getSize().x;
+//
+//              tableEditor[i].setEditor(btnDownloads[i], item.get(i), 3);
+//            }
             for (int i = 0, n = table.getColumnCount(); i < n; i++) {
                 table.getColumn(i).pack();
             }
-            System.out.println("Display done");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        
         return container;
     }
 }

@@ -19,11 +19,8 @@ public class Contents {
         Key = key;
     }
 
-
     @Override
     public String toString() {
-
         return this.Key;
     }
-
 }

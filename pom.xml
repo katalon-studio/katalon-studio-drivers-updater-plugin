@@ -1,108 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>com.katalon</groupId>
 		<artifactId>com.katalon.platform.parent</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.5</version>
 	</parent>
-	
-    <artifactId>katalon-studio-drivers-updater-plugin</artifactId>
-    <packaging>bundle</packaging>
 
-    <dependencies>    
-     	<dependency>
-            <groupId>com.katalon</groupId>
-            <artifactId>com.katalon.platform</artifactId>
-            <version>1.0.1</version>
-        </dependency>    
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.9.6</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20180813</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.6</version>
-        </dependency>
-        
-        <dependency>
-		  <groupId>org.eclipse.persistence</groupId>
-		  <artifactId>eclipselink</artifactId>
-		  <version>2.7.3</version>
-		</dependency>	
-		
+	<groupId>com.katalon</groupId>
+	<artifactId>katalon-studio-drivers-updater-plugin</artifactId>
+	<version>1.0.5</version>
+	<packaging>bundle</packaging>
+
+	<dependencies>
 		<dependency>
-		    <groupId>org.apache.directory.studio</groupId>
-		    <artifactId>org.apache.commons.io</artifactId>
-		    <version>2.4</version>
+			<groupId>com.katalon</groupId>
+			<artifactId>com.katalon.platform</artifactId>
+			<version>1.0.5</version>
 		</dependency>
-		
-    </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>com/katalon/platform/**,org/osgi/**,org/eclipse/e4/**</excludes>
-                            <includes>**/*.class</includes>
-                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                    	<Export-Package>com.katalon.plugin.drivers_updater*</Export-Package>
-                        <Import-Package></Import-Package>
-                        <_include>src/main/resources/META-INF/MANIFEST.MF</_include>
-                        <_noee>true</_noee>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <profiles>
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>release</id>
-		</profile>
-	</profiles>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludes>com/katalon/platform/**,org/osgi/**,org/eclipse/e4/**</excludes>
+							<includes>**/*.class</includes>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton:=true</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Import-Package></Import-Package>
+						<DynamicImport-Package>*</DynamicImport-Package>
+						<_noee>true</_noee>
+						<_nouse>true</_nouse>
+
+						<!-- Change your public package here -->
+						<Export-Package>com.katalon.plugin.drivers_updater*</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

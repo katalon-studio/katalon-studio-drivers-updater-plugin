@@ -7,13 +7,4 @@
                 implementationClass="com.katalon.plugin.drivers_updater.DriverUpdaterEventListenerInitializer">
         </point>
     </extension>
-    <extension
-            point="com.kms.katalon.preferences.PreferencePages">
-        <page
-                category="com.kms.katalon.composer.preferences.PluginPreferencePage"
-                class="com.katalon.plugin.drivers_updater.DriverUpdaterPreferencePage"
-                id="com.katalon.plugin.drivers_updater.DriverUpdaterPreferencePage"
-                name="Drivers Updater">
-        </page>
-    </extension>
 </plugin>

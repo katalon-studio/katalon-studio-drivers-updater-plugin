@@ -353,7 +353,7 @@ public class GetLatestVersion {
     }
 
     public static String getOS(){
-        String nameOS = System.getProperty("os.name");
+        String nameOS = System.getProperty("os.name").toLowerCase();
 
         if (nameOS.contains("Windows")) {
             if (System.getProperty("os.arch").contains("64")){
@@ -368,12 +368,12 @@ public class GetLatestVersion {
                 || nameOS.contains("digital unix")
                 || nameOS.contains("unix")) {
             if (System.getProperty("os.arch").contains("64")){
-                return "win64";
+                return "linux64";
             } else{
-                return "win32";
+                return "linux32";
             }
-        } else if (nameOS.contains("mac os")) {
-            return "macosx";
+        } else if (nameOS.contains("mac")) {
+            return "mac";
         }
         return "";
     }

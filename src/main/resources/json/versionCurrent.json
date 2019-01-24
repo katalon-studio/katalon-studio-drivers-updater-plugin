@@ -16,7 +16,7 @@
       "version": "2.43.600210",
       "url": "drivers/chromedriver_linux64/chromedriver"
     },
-    "macosx": {
+    "mac": {
       "version": "2.43.600210",
       "url": "drivers/chromedriver_mac/chromedriver"
     }
@@ -38,7 +38,7 @@
       "version": "0.23.0",
       "url": "drivers/firefox_linux64/geckodriver"
     },
-    "macosx": {
+    "mac": {
       "version": "0.23.0",
       "url": "drivers/firefox_mac/geckodriver"
     }

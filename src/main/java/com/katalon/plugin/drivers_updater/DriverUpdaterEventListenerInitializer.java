@@ -17,7 +17,7 @@ public class DriverUpdaterEventListenerInitializer implements EventListenerIniti
                 if (ExecutionEvent.TEST_SUITE_FINISHED_EVENT.equals(event.getTopic())) {
     				GetLatestVersion getVersion = new GetLatestVersion();
     				
-    		    	String os = GetLatestVersion.getOS();  
+    		    	String os = GetLatestVersion.getOS();
     		    	String data = getVersion.getDataVersionCurrent();
     		    	
     				Map<String, Map<String,Driver>> current = GetLatestVersion.readCurrentVersion(data);

@@ -9,6 +9,13 @@ Require-Bundle: com.katalon.platform,
  org.eclipse.swt,
  org.eclipse.jface
 Bundle-ActivationPolicy: lazy
+<<<<<<< HEAD
+Export-Package: com.katalon.plugin.driver_upload
+Bundle-ClassPath: .
+Bundle-Name: Katalon Studio Driver Updater Plugin
+Bundle-Vendor: Katalon LLC
+=======
 Export-Package: com.katalon.plugin.drivers_updater
 Bundle-ClassPath: .
 Bundle-Name: Katalon Studio Drivers Updater Plugin
+>>>>>>> origin/master

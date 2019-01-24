@@ -5,95 +5,58 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.katalon</groupId>
+	<parent>
+		<groupId>com.katalon</groupId>
+		<artifactId>com.katalon.platform.parent</artifactId>
+		<version>1.0.1</version>
+	</parent>
+	
     <artifactId>katalon-studio-drivers-updater-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-
-    <dependencies>
+    <dependencies>    
+     	<dependency>
+            <groupId>com.katalon</groupId>
+            <artifactId>com.katalon.platform</artifactId>
+            <version>1.0.1</version>
+        </dependency>    
         <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.event</artifactId>
-            <version>1.4.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.equinox.preferences</artifactId>
-            <version>3.6.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.e4.core.di.annotations</artifactId>
-            <version>1.5.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.jface</artifactId>
-            <version>3.12.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.platform</groupId>
-                    <artifactId>org.eclipse.swt.gtk.linux.arm</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
-            <version>3.105.3</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
-            <version>3.105.3</version>
-            <scope>provided</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.0</version>
         </dependency>
         
         <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-            <version>3.105.3</version>
-            <scope>provided</scope>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.9.6</version>
         </dependency>
-
+        
         <dependency>
-            <groupId>com.katalon</groupId>
-            <artifactId>com.katalon.platform</artifactId>
-            <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>
-                ${basedir}/thirdparty/com.katalon.platform-1.0.0.jar
-            </systemPath>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
+        
+        <dependency>
+		  <groupId>org.eclipse.persistence</groupId>
+		  <artifactId>eclipselink</artifactId>
+		  <version>2.7.3</version>
+		</dependency>	
+		
+		<dependency>
+		    <groupId>org.apache.directory.studio</groupId>
+		    <artifactId>org.apache.commons.io</artifactId>
+		    <version>2.4</version>
+		</dependency>
+		
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.eclipse.platform</groupId>
-                <artifactId>org.eclipse.swt</artifactId>
-                <version>3.105.3</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
@@ -109,7 +72,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <excludes>com.katalon.platform.*</excludes>
+                            <excludes>com/katalon/platform/**,org/osgi/**,org/eclipse/e4/**</excludes>
                             <includes>**/*.class</includes>
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                         </configuration>
@@ -131,4 +94,15 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>release</id>
+		</profile>
+	</profiles>
 </project>

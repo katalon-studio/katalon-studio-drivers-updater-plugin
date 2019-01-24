@@ -2,8 +2,8 @@
 	<extension
             point="com.katalon.platform.extensions">
         <point
-                id="com.katalon.plugin.tags.TagEventListenerInitializer"
-                extensionPointId="com.katalon.platform.api.extension.event"
+                id="com.katalon.plugin.drivers_updater.DriverUpdaterEventListenerInitializer"
+                extensionPointId="com.katalon.platform.api.extension.eventListener"
                 implementationClass="com.katalon.plugin.drivers_updater.DriverUpdaterEventListenerInitializer">
         </point>
     </extension>

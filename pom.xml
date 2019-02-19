@@ -7,19 +7,19 @@
 	<parent>
 		<groupId>com.katalon</groupId>
 		<artifactId>com.katalon.platform.parent</artifactId>
-		<version>1.0.5</version>
+		<version>1.0.6</version>
 	</parent>
 
 	<groupId>com.katalon</groupId>
 	<artifactId>katalon-studio-drivers-updater-plugin</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<packaging>bundle</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.katalon</groupId>
 			<artifactId>com.katalon.platform</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.6</version>
 		</dependency>
 
 		<dependency>
